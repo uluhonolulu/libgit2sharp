@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace LibGit2Sharp.Core
 {
-    internal abstract class SafeHandleBase : SafeHandle
+	public abstract class SafeHandleBase : SafeHandle
     {
         protected SafeHandleBase()
             : base(IntPtr.Zero, true)

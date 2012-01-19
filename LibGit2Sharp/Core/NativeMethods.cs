@@ -2,13 +2,15 @@
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace LibGit2Sharp.Core
 {
-    internal static class NativeMethods
+	public static class NativeMethods
     {
         public const int GIT_PATH_MAX = 4096;
-        private const string libgit2 = "git2";
+		public const string libgit2 = "git2";
+    	public const int GIT_DIR_FETCH = 0;
 
         static NativeMethods()
         {
@@ -246,6 +248,22 @@ namespace LibGit2Sharp.Core
         [DllImport(libgit2)]
         public static extern GitReferenceType git_reference_type(IntPtr reference);
 
+		[DllImport(libgit2)]
+        public static extern int git_remote_new(
+            out RemoteSafeHandle remote,
+            RepositorySafeHandle repo,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Utf8Marshaler))] string url,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Utf8Marshaler))] string name);
+
+        [DllImport(libgit2)]
+        public static extern int git_remote_connect(
+			RemoteSafeHandle remote, 
+			int direction);
+
+
+        [DllImport(libgit2)]
+		public static extern void git_remote_disconnect(RemoteSafeHandle remote);
+
         [DllImport(libgit2)]
         public static extern void git_remote_free(IntPtr remote);
 
@@ -348,7 +366,7 @@ namespace LibGit2Sharp.Core
             RepositorySafeHandle repo,
             [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Utf8Marshaler))] string filepath);
 
-        internal delegate int status_callback(
+		public delegate int status_callback(
             [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Utf8Marshaler))] string statuspath,
             uint statusflags,
             IntPtr payload);

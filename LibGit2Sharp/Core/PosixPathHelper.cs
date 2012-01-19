@@ -2,7 +2,7 @@
 
 namespace LibGit2Sharp.Core
 {
-    internal static class PosixPathHelper
+	public static class PosixPathHelper
     {
         private const char posixDirectorySeparatorChar = '/';
 

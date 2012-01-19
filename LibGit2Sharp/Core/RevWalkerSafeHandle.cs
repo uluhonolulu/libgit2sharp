@@ -1,6 +1,6 @@
 ﻿namespace LibGit2Sharp.Core
 {
-    internal class RevWalkerSafeHandle : SafeHandleBase
+	public class RevWalkerSafeHandle : SafeHandleBase
     {
         protected override bool ReleaseHandle()
         {

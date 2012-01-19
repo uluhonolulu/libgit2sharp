@@ -1,6 +1,6 @@
 ﻿namespace LibGit2Sharp.Core
 {
-    internal class RemoteSafeHandle : SafeHandleBase
+	public class RemoteSafeHandle : SafeHandleBase
     {
         protected override bool ReleaseHandle()
         {
